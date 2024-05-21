@@ -4,7 +4,7 @@ from schemas import ma
 from limiter import limiter
 from caching import cache
 
-from models.models import Employee, Product, Order, Production
+from models.models import Employee, Product, Order, Customer, Production
 
 from routes.empl_blueprint import empl_blueprint
 from routes.product_blueprint import product_blueprint
