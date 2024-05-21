@@ -1,6 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from database import db, Base
+from sqlalchemy.orm import Mapped, mapped_column
 
 class Employee(db.Model):
     __tablename__ = 'employees'
@@ -22,12 +21,12 @@ class Order(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
 
-class Customer(db.Model):
-    __tablename__ = 'customers'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
+class Customer(Base):
+    __tablename__ = "customers"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(db.String(255), nullable=False)
+    email: Mapped[str] = mapped_column(db.String(320))
+    phone: Mapped[str] = mapped_column(db.String(15))
 
 class Production(db.Model):
     __tablename__ = 'production'

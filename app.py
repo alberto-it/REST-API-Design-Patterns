@@ -6,11 +6,11 @@ from caching import cache
 
 from models.models import Employee, Product, Order, Customer, Production
 
-from routes.empl_blueprint import empl_blueprint
-from routes.product_blueprint import product_blueprint
-from routes.order_blueprint import order_blueprint
-from routes.customer_blueprint import customer_blueprint
-from routes.production_blueprint import production_blueprint
+from routes.employees import empl_bp
+from routes.products import product_bp
+from routes.orders import order_bp
+from routes.customers import customer_bp
+from routes.productions import production_bp
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -25,18 +25,18 @@ def create_app(config_name):
     return app
 
 def blueprint_config(app):
-    app.register_blueprint(empl_blueprint, url_prefix='/employees')
-    app.register_blueprint(product_blueprint, url_prefix='/products')
-    app.register_blueprint(order_blueprint, url_prefix='/orders')
-    app.register_blueprint(customer_blueprint, url_prefix='/customers')
-    app.register_blueprint(production_blueprint, url_prefix='/productions')
+    app.register_blueprint(empl_bp, url_prefix='/employees')
+    app.register_blueprint(product_bp, url_prefix='/products')
+    app.register_blueprint(order_bp, url_prefix='/orders')
+    app.register_blueprint(customer_bp, url_prefix='/customers')
+    app.register_blueprint(production_bp, url_prefix='/productions')
 
 def config_rate_limit():
-    limiter.limit("100 per hour")(empl_blueprint)
-    limiter.limit("100 per hour")(product_blueprint)
-    limiter.limit("100 per hour")(order_blueprint)
-    limiter.limit("100 per hour")(customer_blueprint)
-    limiter.limit("100 per hour")(production_blueprint)
+    limiter.limit("100 per hour")(empl_bp)
+    limiter.limit("100 per hour")(product_bp)
+    limiter.limit("100 per hour")(order_bp)
+    limiter.limit("100 per hour")(customer_bp)
+    limiter.limit("100 per hour")(production_bp)
 
 if __name__ == "__main__":
     app = create_app('DevelopmentConfig')
@@ -44,8 +44,6 @@ if __name__ == "__main__":
     blueprint_config(app)
     config_rate_limit()
 
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
+    with app.app_context(): db.create_all()
 
     app.run(debug=True)
