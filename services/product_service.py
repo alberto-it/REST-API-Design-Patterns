@@ -1,29 +1,19 @@
 from sqlalchemy.orm import Session
 from database import db
 from models.product_model import Product
-from circuitbreaker import circuit
 
-def fallback_func():
-    print('The fallback function is being executed')
-    return None
-
-@circuit(failure_threshold=1, recovery_timeout=10, fallback_function=fallback_func)
 def save(product_data):
-    try:
-        if product_data['name'] == 'Failure':
-            raise Exception("Failure condition triggered") 
-        
-        with Session(db.engine) as session:
-            with session.begin():
-                new_product = Product(name=product_data['name'], price=product_data['price'])
-                session.add(new_product)
-                session.commit()
-            session.refresh(new_product)
-            return new_product
-    except Exception as e:
-        raise e
+    with Session(db.engine) as session:
+        with session.begin():
+            new_product = Product(name=product_data['name'], price=product_data['price'])
+            session.add(new_product)
+            session.commit()
+        session.refresh(new_product)
+        return new_product
 
-def find_all():
+def find_all(page=1, per_page=10, search_term=None):
     query = db.select(Product)
-    products = db.session.execute(query).scalars().all()
-    return products
+    if search_term:
+        query = query.where(Product.name.ilike(f"%{search_term}%"))
+    query = query.limit(per_page).offset((page-1)*per_page)
+    return db.session.execute(query).scalars().all()
