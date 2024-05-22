@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from database import db
-from models.models import Product
+from models.product import Product
 from circuitbreaker import circuit
 
 def fallback_func():

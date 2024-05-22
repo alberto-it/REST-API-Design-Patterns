@@ -4,7 +4,11 @@ from schemas import ma
 from limiter import limiter
 from caching import cache
 
-from models.models import Employee, Product, Order, Customer, Production
+from models.employee import Employee
+from models.product import Product
+from models.order import Order
+from models.customer import Customer
+from models.productions import Production
 
 from routes.employees import empl_bp
 from routes.products import product_bp

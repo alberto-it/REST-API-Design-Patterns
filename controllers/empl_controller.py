@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from schemas.schemas import empl_schema, empls_schema
+from schemas.employee import empl_schema, empls_schema
 from services import empl_service
 from marshmallow import ValidationError
 from caching import cache
