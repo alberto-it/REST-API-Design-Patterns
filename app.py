@@ -4,17 +4,17 @@ from schemas import ma
 from limiter import limiter
 from caching import cache
 
-from models.employee import Employee
-from models.product import Product
-from models.order import Order
-from models.customer import Customer
-from models.productions import Production
+from models.employee_model import Employee
+from models.product_model import Product
+from models.order_model import Order
+from models.customer_model import Customer
+from models.productions_model import Production
 
-from routes.employees import empl_bp
-from routes.products import product_bp
-from routes.orders import order_bp
-from routes.customers import customer_bp
-from routes.productions import production_bp
+from routes.employees_blueprint import empl_bp
+from routes.products_blueprint import product_bp
+from routes.orders_blueprint import order_bp
+from routes.customers_blueprint import customer_bp
+from routes.productions_blueprint import production_bp
 
 def create_app(config_name):
     app = Flask(__name__)

@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from schemas.production import production_schema, productions_schema
+from schemas.production_schema import production_schema, productions_schema
 from services import production_service
 from marshmallow import ValidationError
 from caching import cache

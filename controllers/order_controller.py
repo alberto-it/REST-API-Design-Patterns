@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from schemas.order import order_schema, orders_schema
+from schemas.order_schema import order_schema, orders_schema
 from services import order_service
 from marshmallow import ValidationError
 from caching import cache
